@@ -86,10 +86,31 @@ var ENV = {
 * `ember test`
 * `ember test --server`
 
+## Testing apps
+Stripe functionality can be enabled / disabled via a feature flag; this is great for
+integrations tests so that your integration tests do not actually hit Stripe servers.
+
+````javascript
+var ENV = {
+  // some vars...
+  ENABLE_STRIPE: true,
+  // more config ...
+}
+````
+
+When ENABLE_STRIPE is set to `false` then the Stripe service is a stub; the 
+`createToken()` function will not send a request to Stripe; it will return a
+canned success response.  When the stripe stub service is active, you can also
+manipulate it to return an error response like so:
+
+````javascript
+var stripe = this.get('stripeService');s
+stripe.setResponse(stripe.errorResponse);
+
+````
 
 For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
 
 ## Upcoming Features
 - I'm thinking of giving access other methods of Stripe, but I'm not sure so if you find one useful please make an issue
-- Provide an option to inject mocked Stripe library inspired by ember-cli-custom-form but with deeper mocking and set by config flag not environment so integration tests can still be run with real service if wanted
 - PRs welcome and encouraged, and if you're not sure how to implement something we could try to work together
