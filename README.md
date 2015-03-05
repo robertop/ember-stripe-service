@@ -104,7 +104,7 @@ canned success response.  When the stripe stub service is active, you can also
 manipulate it to return an error response like so:
 
 ````javascript
-var stripe = this.get('stripeService');s
+var stripe = this.get('stripeService');
 stripe.setResponse(stripe.errorResponse);
 
 ````
